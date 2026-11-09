@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-saffron: #ff7a00;
+  --color-vermilion: #e2231a;
+  --color-gold: #f5b700;
+  --color-peacock: #0f766e;
+  --color-peacock-deep: #083d4a;
+  --color-indigo-night: #1e1b4b;
+  --color-cream: #fff8ec;
+  --font-tamil: var(--font-noto-serif-tamil), serif;
+  --font-body: var(--font-mukta), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --bg: #fff8ec;
+  --ink: #3b1d0a;
+  --muted: #7c4a26;
+  --card: rgba(255, 255, 255, 0.78);
+  --border: rgba(226, 35, 26, 0.14);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #160b1f;
+    --ink: #fdebd3;
+    --muted: #e6b98c;
+    --card: rgba(40, 20, 45, 0.72);
+    --border: rgba(245, 183, 0, 0.2);
   }
 }
 
+html { scroll-behavior: smooth; }
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  background-image:
+    radial-gradient(circle at 10% -10%, rgba(255, 122, 0, 0.18), transparent 40%),
+    radial-gradient(circle at 110% 10%, rgba(15, 118, 110, 0.18), transparent 40%),
+    radial-gradient(circle at 50% 120%, rgba(226, 35, 26, 0.14), transparent 50%);
+  background-attachment: fixed;
+}
+
+.font-tamil { font-family: var(--font-tamil); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px -15px rgba(120, 40, 0, 0.35);
+}
+
+.muted { color: var(--muted); }
+
+.text-gradient {
+  background: linear-gradient(90deg, #e2231a, #ff7a00, #f5b700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.peacock-border {
+  background: conic-gradient(from 0deg, #0f766e, #14b8a6, #2563eb, #7c3aed, #f5b700, #ff7a00, #e2231a, #0f766e);
+}
+
+@keyframes halo {
+  0%, 100% { box-shadow: 0 0 40px 6px rgba(245, 183, 0, 0.45), 0 0 90px 20px rgba(255, 122, 0, 0.25); }
+  50% { box-shadow: 0 0 60px 12px rgba(245, 183, 0, 0.65), 0 0 120px 30px rgba(226, 35, 26, 0.3); }
+}
+.halo { animation: halo 5s ease-in-out infinite; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 24s linear infinite; }
+
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 1; }
+  50% { transform: scaleY(1.12) translateY(-1px); opacity: 0.85; }
+}
+.flame { animation: flicker 1.6s ease-in-out infinite; transform-origin: bottom center; }
+
+.verse-line { line-height: 2.1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .halo, .spin-slow, .flame { animation: none; }
 }
